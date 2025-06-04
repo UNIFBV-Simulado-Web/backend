@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "questions" ALTER COLUMN "title" DROP NOT NULL,
+ALTER COLUMN "discipline" DROP NOT NULL,
+ALTER COLUMN "language" DROP NOT NULL;
