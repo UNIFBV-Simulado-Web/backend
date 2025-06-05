@@ -15,16 +15,16 @@ datasource db {
 }
 
 model Question {
-  id                  Int     @id @default(autoincrement())
+  id                  Int           @id @default(autoincrement())
   title               String?
   discipline          String?
   language            String?
   year                Int
-  context             String? @db.Text
+  context             String?       @db.Text
   correct_alternative String
-
-  alternatives Alternative[]
-  files        File[]
+  introduction        String?
+  alternatives        Alternative[]
+  files               File[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
