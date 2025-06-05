@@ -1,4 +1,3 @@
-// src/usuario/entities/usuario.entity.ts
 import { Exclude } from 'class-transformer';
 import { User as PrismaUser } from '@prisma/client';
 
