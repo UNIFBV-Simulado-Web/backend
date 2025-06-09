@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const whitelist = ['http://localhost:3000'];
+  const whitelist = ['http://localhost:3000', 'quiz.saggioro.xyz'];
 
   app.enableCors({
     origin: function (origin, callback) {
