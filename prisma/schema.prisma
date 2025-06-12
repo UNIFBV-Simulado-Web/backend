@@ -26,8 +26,9 @@ model Question {
   alternatives        Alternative[]
   files               File[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime?    @updatedAt
+  UserAnswer UserAnswer[]
 
   @@map("questions")
 }
@@ -42,8 +43,9 @@ model Alternative {
 
   question Question @relation(fields: [question_id], references: [id], onDelete: Cascade)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime?    @updatedAt
+  UserAnswer UserAnswer[]
 
   @@unique([question_id, letter])
   @@map("alternatives")
@@ -63,8 +65,22 @@ model File {
 }
 
 model User {
-  id           Int    @id @default(autoincrement())
-  email        String @unique
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
   nomeCompleto String
   senha        String
+  UserAnswer   UserAnswer[]
+}
+
+model UserAnswer {
+  id                    Int      @id @default(autoincrement())
+  userId                Int
+  questionId            Int
+  selectedAlternativeId Int
+  isCorrect             Boolean
+  answeredAt            DateTime @default(now())
+
+  user                User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question            Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  selectedAlternative Alternative @relation(fields: [selectedAlternativeId], references: [id], onDelete: NoAction)
 }

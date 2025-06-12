@@ -11,6 +11,9 @@ export interface GetQuestionsParamsDto {
   year?: number;
   random?: boolean;
 }
+export interface QuestionWithAlternatives extends Question {
+  alternatives: Alternative[];
+}
 
 export interface QuestionWithRelations extends Question {
   alternatives: Alternative[];
@@ -26,6 +29,25 @@ export class QuestionService {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+  async findById(id: number): Promise<QuestionWithAlternatives | null> {
+    return this.prisma.question.findUnique({
+      where: { id },
+      include: { alternatives: true },
+    });
+  }
+
+  async findMany(ids: number[]): Promise<QuestionWithAlternatives[]> {
+    return this.prisma.question.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+      include: {
+        alternatives: true,
+      },
+    });
   }
 
   async findFilteredQuestions({
